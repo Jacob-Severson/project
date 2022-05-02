@@ -1,3 +1,4 @@
+from gui import *
 #TODO Account for invalid data
 #TODO Exeption handle for runtime errors
 #TODO test the code with unit test or pytest
@@ -13,15 +14,23 @@ def nameAndAge(name: str, age: int) -> str:
     :param age: the age of an indivudial
     :return: the name and the age(multiplied by 2)
     """
-    return f"Hello {name}! You are {age*2} years old"
+    print(f"Hello {name}! You are {age*2} years old.")
 
 def main():
     """
     Main function
     :return:
     """
-    name = input("What is your name?").strip().lower().capitalize()
-    age = int(input().strip())
+    window = Tk()
+    window.title("Project 1")
+    window.geometry("300x100")
+    window.resizable(False,False)
+
+    widgets = GUI(window)
+    window.mainloop()
+
+    name = input("What is your name? ").strip().lower().capitalize()
+    age = int(input("What is your age? ").strip())
     nameAndAge(name, age)
 
 if __name__ == "__main__":
