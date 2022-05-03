@@ -1,3 +1,4 @@
+import gui
 from gui import *
 #TODO Account for invalid data
 #TODO Exeption handle for runtime errors
@@ -28,11 +29,11 @@ def main():
     window.geometry("230x105")
     window.resizable(False,False)
 
-    widgets = GUI(window)
+    widgets = gui.GUI(window)
     window.mainloop()
 
-    name=namegui #FIXME need to get name from gui
-    age=agegui #FIXME need to get age from gui
+    name = gui.namegui #FIXME need to get name from gui
+    age = gui.agegui #FIXME need to get age from gui
     print(nameAndAge(name,age))
 
 
