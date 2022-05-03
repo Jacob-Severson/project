@@ -27,7 +27,7 @@ def main():
     """
     window = Tk()
     window.title("Project 1")
-    window.geometry("230x105")
+    window.geometry("240x105")
     window.resizable(False, False)
 
     widgets = gui.GUI(window)
