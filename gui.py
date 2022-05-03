@@ -33,8 +33,7 @@ class GUI:
             self.label_error.config(text="Please put in a integer for age")
             self.label_error.grid(row=4,column=1)
         else:
-            agegui = int(self.entry_age.get)
-        namegui = self.entry_name.get()
-        #age = self.entry_age.get()
+            agegui = self.entry_age.get()
+            namegui = self.entry_name.get()
         self.entry_name.delete(0, END)
         self.entry_age.delete(0, END)
