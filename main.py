@@ -14,7 +14,9 @@ def nameAndAge(name: str, age: int) -> str:
     :param age: the age of an indivudial
     :return: the name and the age(multiplied by 2)
     """
-    print(f"Hello {name}! You are {age*2} years old.")
+    with open("namesAndAges.txt","a") as f:
+        f.write(f"{name}, {age}")
+    return (f"Hello {name}! You are {age*2} years old.")
 
 def main():
     """
@@ -23,15 +25,16 @@ def main():
     """
     window = Tk()
     window.title("Project 1")
-    window.geometry("300x100")
+    window.geometry("230x105")
     window.resizable(False,False)
 
     widgets = GUI(window)
     window.mainloop()
 
-    name = input("What is your name? ").strip().lower().capitalize()
-    age = int(input("What is your age? ").strip())
-    nameAndAge(name, age)
+    name=namegui #FIXME need to get name from gui
+    age=agegui #FIXME need to get age from gui
+    print(nameAndAge(name,age))
+
 
 if __name__ == "__main__":
     main()
