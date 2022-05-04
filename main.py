@@ -50,6 +50,7 @@ class GUI:
             else:
                 agegui = self.entry_age.get()
                 namegui = self.entry_name.get()
+                nameAndAge(namegui,int(agegui))
                 self.entry_name.delete(0, END)
                 self.entry_age.delete(0, END)
 
@@ -61,7 +62,7 @@ def nameAndAge(name: str, age: int) -> str:
     :return: the name and the age(multiplied by 2)
     """
     with open("namesAndAges.txt","a") as f:
-        f.write(f"{name}, {age}")
+        f.write(f"Name: {name}, Age: {age*2}")
     return (f"Hello {name}! You are {age*2} years old.")
 
 def main():
@@ -76,10 +77,6 @@ def main():
 
     GUI(window)
     window.mainloop()
-
-    name = GUI.namegui #FIXME need to get name from gui
-    age = GUIagegui #FIXME need to get age from gui
-    print(nameAndAge(name,age))
 
 
 if __name__ == "__main__":
