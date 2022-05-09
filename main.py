@@ -41,6 +41,13 @@ class GUI:
         self.label_phone.grid(row=5, column=0)
         self.entry_phone.grid(row=5, column=1)
 
+        self.genders=["please choose", "Male", "Female", "Other"]
+        self.gendervar = StringVar()
+        self.gendervar.set(self.genders[0])
+
+        self.dropdown =OptionMenu(self.window,self.gendervar, *self.genders)
+        self.dropdown.grid(row=6, column=0)
+
 
     def clicked(self):
         """
@@ -48,9 +55,46 @@ class GUI:
         :return: none
         """
         self.label_error.config(text="")
-        if self.entry_name.get()=="" or self.entry_age.get()=="" or self.entry_email.get()=="" or self.entry_phone.get()=="":
+        self.isready=0
+        self.errormsg=""
+        if self.entry_name.get()=="" or self.entry_age.get()=="" or self.entry_email.get()=="" or self.entry_phone.get()=="" or self.gendervar.get()=="please choose":
             self.label_error.config(text="please fill all inputs")
         else:
+            ### age  ↓
+            try:
+                int(self.entry_age.get())
+                if int(self.entry_age.get()) <= 0:
+                    raise ValueError
+            except ValueError:
+                self.errormsg=self.errormsg+"Please put in a + integer for age "
+                self.label_error.config(text=self.errormsg)
+                self.label_error.grid(row=4, column=1)  # FIXME need to change this to what is said when originally placing
+            else:
+                self.isready+=1
+            ### age  ↑
+            ### email ↓
+            if checkemail(self.entry_email.get()):
+                self.isready+=1
+            else:
+                self.errormsg=self.errormsg+"please put in a valid email "
+                self.label_error.config(text=self.errormsg)
+            ### email ↑
+            ### phone ↓
+            if checkphone(self.entry_phone.get()):
+                self.isready+=1
+            else:
+                self.errormsg=self.errormsg+"please put in a valid phone number"
+                self.label_error.config(text=self.errormsg)
+            ### phone ↑
+
+            if self.isready == 3:
+                toWrite(self.entry_name(),int(self.entry_age.get()),self.entry_email.get(),self.entry_phone.get(),self.gendervar.get())
+                self.entry_name.delete(0, END)
+                self.entry_age.delete(0, END)
+                self.entry_email.delete(0, END)
+                self.entry_phone.delete(0, END)
+                self.dropdown.set(self.genders[0]) #FIXME need to clear dropdown, this doesnt work
+            """
             try:
                 int(self.entry_age.get())
                 if int(self.entry_age.get()) <= 0:
@@ -71,18 +115,16 @@ class GUI:
                         self.entry_email.delete(0, END)
                         self.entry_phone.delete(0, END)
                 else:
-                    self.label_error.config(text="please put in a valid email")
+                    self.label_error.config(text="please put in a valid email")"""
 
-def nameAndAge(name: str, age: int, email: str) -> str:
+def toWrite(name: str, age: int, email: str, phone, gender):
     """
     function to return the name and age(multiplied by 2)
     :param name: the name of an individual
     :param age: the age of an individual
-    :return: the name and the age(multiplied by 2)
     """
     with open("namesAndAges.txt","a") as f:
-        f.write(f"Name: {name}, Age: {age*2}")
-    return (f"Hello {name}! You are {age*2} years old.")
+        f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}")
 
 def checkemail(email):
     """
@@ -113,6 +155,7 @@ def main():
     Main function
     :return:
     """
+
     window = Tk()
     window.title("Project 1")
     window.geometry("500x500")
