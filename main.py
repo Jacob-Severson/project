@@ -33,20 +33,22 @@ class GUI:
         self.entry_name.grid(row=0, column=1)
         self.label_age.grid(row=1, column=0)
         self.entry_age.grid(row=1, column=1)
-        self.label_error.grid(row=2, column=0)
-        self.button_save.grid(row=3, column=1)
+        self.label_error.grid(row=7, column=1)  ##########
+        self.button_save.grid(row=6, column=1)
 
-        self.label_email.grid(row=4, column=0)
-        self.entry_email.grid(row=4, column=1)
-        self.label_phone.grid(row=5, column=0)
-        self.entry_phone.grid(row=5, column=1)
+        self.label_email.grid(row=2, column=0)
+        self.entry_email.grid(row=2, column=1)
+        self.label_phone.grid(row=3, column=0)
+        self.entry_phone.grid(row=3, column=1)
 
         self.genders=["please choose", "Male", "Female", "Other"]
         self.gendervar = StringVar()
         self.gendervar.set(self.genders[0])
 
         self.dropdown =OptionMenu(self.window,self.gendervar, *self.genders)
-        self.dropdown.grid(row=6, column=0)
+        self.dropdown.grid(row=5, column=1)
+        self.label_gender = Label(self.window,text="Gender")
+        self.label_gender.grid(row=5, column=0)
 
 
     def clicked(self):
@@ -68,7 +70,7 @@ class GUI:
             except ValueError:
                 self.errormsg=self.errormsg+"Please put in a + integer for age "
                 self.label_error.config(text=self.errormsg)
-                self.label_error.grid(row=4, column=1)  # FIXME need to change this to what is said when originally placing
+                self.label_error.grid(row=7, column=1)  # FIXME need to change this to what is said when originally placing
             else:
                 self.isready+=1
             ### age  ↑
@@ -88,34 +90,12 @@ class GUI:
             ### phone ↑
 
             if self.isready == 3:
-                toWrite(self.entry_name(),int(self.entry_age.get()),self.entry_email.get(),self.entry_phone.get(),self.gendervar.get())
+                print(toWrite(self.entry_name(),int(self.entry_age.get()),self.entry_email.get(),self.entry_phone.get(),self.gendervar.get()))
                 self.entry_name.delete(0, END)
                 self.entry_age.delete(0, END)
                 self.entry_email.delete(0, END)
                 self.entry_phone.delete(0, END)
                 self.dropdown.set(self.genders[0]) #FIXME need to clear dropdown, this doesnt work
-            """
-            try:
-                int(self.entry_age.get())
-                if int(self.entry_age.get()) <= 0:
-                    raise ValueError
-            except ValueError:
-                self.label_error.config(text="Please put in a + integer for age")
-                self.label_error.grid(row=4,column=1) #FIXME need to change this to what is said when originally placing
-            else:
-                if checkemail(self.entry_email.get()):
-                    if checkphone(self.entry_phone.get()):
-                        agegui = self.entry_age.get()
-                        namegui = self.entry_name.get()
-                        emailgui = self.entry_email.get()
-                        phonegui = self.entry_phone.get()
-                        # print(nameAndAge(namegui, int(agegui),emailgui))
-                        self.entry_name.delete(0, END)
-                        self.entry_age.delete(0, END)
-                        self.entry_email.delete(0, END)
-                        self.entry_phone.delete(0, END)
-                else:
-                    self.label_error.config(text="please put in a valid email")"""
 
 def toWrite(name: str, age: int, email: str, phone, gender):
     """
@@ -125,6 +105,7 @@ def toWrite(name: str, age: int, email: str, phone, gender):
     """
     with open("namesAndAges.txt","a") as f:
         f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}")
+        return f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}"
 
 def checkemail(email):
     """
@@ -158,7 +139,7 @@ def main():
 
     window = Tk()
     window.title("Project 1")
-    window.geometry("500x500")
+    window.geometry("600x250")
     window.resizable(False, False)
 
     GUI(window)
