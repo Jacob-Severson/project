@@ -104,7 +104,7 @@ def toWrite(name: str, age: int, email: str, phone, gender):
     :param age: the age of an individual
     """
     with open("namesAndAges.txt","a") as f:
-        #f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}")
+        f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}")
         return f"Name: {name}, Age: {age}, Email: {email}, Phone #: {phone}, Gender: {gender}"
 
 def checkemail(email):
