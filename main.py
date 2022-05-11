@@ -53,7 +53,7 @@ class GUI:
 
     def clicked(self):
         """
-        gets the name and age variables, clears the text box
+        gets all the variables, checks if any field is empty, if age is a int, checks for valid phone number and email
         :return: none
         """
         self.label_error.config(text="")
@@ -103,8 +103,8 @@ def toWrite(name: str, age: int, email: str, phone, gender):
     :param name: the name of an individual
     :param age: the age of an individual
     """
-    with open("namesAndAges.txt","a") as f:
-        f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}")
+    with open("information.txt","a") as f:
+        f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}\n")
         return f"Name: {name}, Age: {age}, Email: {email}, Phone #: {phone}, Gender: {gender}"
 
 def checkemail(email):
