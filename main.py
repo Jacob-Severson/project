@@ -70,7 +70,7 @@ class GUI:
             except ValueError:
                 self.errormsg=self.errormsg+"Please put in a + integer for age "
                 self.label_error.config(text=self.errormsg)
-                self.label_error.grid(row=7, column=1)  # FIXME need to change this to what is said when originally placing
+                self.label_error.grid(row=7, column=1)
             else:
                 self.isready+=1
             ### age  ↑
@@ -90,12 +90,12 @@ class GUI:
             ### phone ↑
 
             if self.isready == 3:
-                print(toWrite(self.entry_name(),int(self.entry_age.get()),self.entry_email.get(),self.entry_phone.get(),self.gendervar.get()))
+                print(toWrite(self.entry_name.get(),int(self.entry_age.get()),self.entry_email.get(),self.entry_phone.get(),self.gendervar.get()))
                 self.entry_name.delete(0, END)
                 self.entry_age.delete(0, END)
                 self.entry_email.delete(0, END)
                 self.entry_phone.delete(0, END)
-                self.dropdown.set(self.genders[0]) #FIXME need to clear dropdown, this doesnt work
+                self.gendervar.set(self.genders[0])
 
 def toWrite(name: str, age: int, email: str, phone, gender):
     """
@@ -104,7 +104,7 @@ def toWrite(name: str, age: int, email: str, phone, gender):
     :param age: the age of an individual
     """
     with open("namesAndAges.txt","a") as f:
-        f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}")
+        #f.write(f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}")
         return f"Name: {name}, Age: {age}, Email: {email}, phone #: {phone}, gender: {gender}"
 
 def checkemail(email):
